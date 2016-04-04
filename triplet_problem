@@ -1,0 +1,103 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+int main()
+{
+    long long t,l,m,n;
+    long long ans;
+    long long i,j,k;
+    long long mid,lo,hi;
+    long long i_index,k_index;
+
+    scanf("%lld",&t);
+
+    while(t--)
+    {
+	//INPUTS
+      scanf("%lld",&l);
+      long long a[l];
+      for(i=0;i<l;i++)
+          scanf("%lld",&a[i]);
+
+      scanf("%lld",&m);
+      long long b[m];
+      for(i=0;i<m;i++)
+          scanf("%lld",&b[i]);
+
+      scanf("%lld",&n);
+      long long c[n];
+      for(i=0;i<n;i++)
+          scanf("%lld",&c[i]);
+
+      ans=0;
+
+      for(j=0;j<m;j++)
+      {
+          if(c[n-1]<b[j])
+              break;
+          if(j>n-1)
+        	  break;
+
+          if(a[0]>b[j])
+              continue;
+
+
+          if(j<=l-1 && a[j]<=b[j])
+              i_index=j;
+          else if(j>l-1 && a[l-1]<=b[j])
+              i_index=l-1;
+          else
+          {
+    	    lo=0;hi=j;
+    	       while(lo+1<hi)
+    	       {
+    		      mid=(lo+hi)/2;
+    		      if(a[mid]<=b[j])
+    		      {
+    			     lo=mid;
+                  }
+                  else
+                  {
+                     hi=mid;
+                  }
+    	       }//end of while for first array
+             i_index=lo;
+           }
+
+
+          if(c[j]>=b[j])
+          {
+              k_index=j;
+          }
+          
+          else
+          {
+            lo=j;hi=n-1;
+    	    while(lo+1<hi)
+    	    {
+    		  mid=(lo+hi)/2;
+    		  if(c[mid]<b[j])
+    		  {
+    			 lo=mid;
+    		  }
+    		  else
+    		  {
+    			  hi=mid;
+    		  }
+    	    }//end of while for second array
+            k_index=hi;
+           }
+
+          //printf("i_index is %lld , k_index is %lld\n",i_index,k_index);
+    	  ans+=(i_index+1)*(n-k_index);
+    	  //printf("ans=%lld\n",ans);
+      }
+
+      printf("%lld\n",ans);
+    }//end of t--
+
+
+    return 0;
+}
