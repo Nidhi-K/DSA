@@ -51,3 +51,4 @@ int main()
    cout<<d[n-1];
     cout<<endl;
 }
+
