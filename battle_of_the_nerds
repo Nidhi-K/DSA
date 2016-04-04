@@ -1,0 +1,73 @@
+#include<stdio.h>
+
+
+int main()
+{
+ int n,q,i;
+ float l;
+ int j;
+ scanf("%d %d",&n,&q);
+ int a[n];
+ 
+ for(j=0;j<n;j++)
+  scanf("%d",&a[j]);
+ 
+ int lo,hi,mid;
+ while(q--)
+ {
+ 	scanf("%d %f",&i,&l);
+ 	
+ 	if(i<a[0] && (a[0]-i)*2<=l)
+ 	{
+ 		printf("%d\n",a[0]);
+ 		continue;
+ 	}
+ 	
+ 	if(i<a[0] && (a[0]-i)*2>l)
+ 	{
+ 		printf("-1\n");
+ 		continue;
+ 	}
+ 	
+ 	if(i>a[n-1] && (i-a[n-1])*2<=l)
+ 	{
+ 		printf("%d\n",a[n-1]);
+ 		continue;
+ 	}
+ 	
+ 	if(i>a[n-1] && (i-a[n-1])*2>l)
+ 	{
+ 		printf("-1\n");
+ 		continue;
+ 	}
+ 	
+ 	//BINARY SEARCH
+ 	lo=0;hi=n-1;
+ 	while(lo<=hi)
+	{	
+	 mid=(lo+hi)/2;
+	 //printf("%lld %lld %lld\n",mid,lo,hi);
+	 if(a[mid]==i)
+	 {
+	 	printf("%d\n",i);
+	 	break;
+	 }
+	 else if(a[mid]<i && a[mid+1]>i)
+	 {
+	 	if((i-a[mid])*2<=l && (i-a[mid])<=(a[mid+1]-i))
+	 		printf("%d\n",a[mid]);
+	 	else if((a[mid+1]-i)*2<=l)
+	 		printf("%d\n",a[mid+1]);
+	 	else
+	 	    printf("-1\n");	 		
+	 	break;
+	 }
+	 else if(a[mid]>i)
+	  hi=mid-1;
+	 else
+	  lo=mid+1;
+	}
+ }
+ 
+ return 0;
+}
